@@ -19,8 +19,7 @@ class BurglarTest {
         cl.lock();
         Burglar b = new Burglar(cl);
         String comb = b.findCombination();
-        System.out.println(comb);
-        assertTrue(b.findCombination().equals("XHS"));
+        assertTrue(comb.equals("XHS"));
         assertTrue(b.getAttempts()>0);
     }
 
