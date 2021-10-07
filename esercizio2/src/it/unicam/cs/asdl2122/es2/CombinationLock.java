@@ -9,12 +9,9 @@ package it.unicam.cs.asdl2122.es2;
  * @author Luca Tesei
  */
 public class CombinationLock {
-
-    // TODO inserire le variabili istanza che servono
     String combinazione;
     StringBuffer combinazioneInserita = new StringBuffer();
-
-    private boolean locked = true;
+    private boolean unlocked = true;
 
     /**
      * Costruisce una cassaforte <b>aperta</b> con una data combinazione
@@ -32,7 +29,7 @@ public class CombinationLock {
                 Character.isLowerCase(caratteriCombinazione[1]) || !Character.isLetter(caratteriCombinazione[2]) ||
                 Character.isLowerCase(caratteriCombinazione[2]))
             throw new IllegalArgumentException("La combinazione deve avere 3 lettere maiuscole");
-        if (aCombination.equals(null)) throw new NullPointerException("La stringa inserita è nulla");
+        if (aCombination == null) throw new NullPointerException("La stringa inserita è nulla");
 
         combinazione = aCombination;
     }
@@ -62,9 +59,9 @@ public class CombinationLock {
      */
     public void open() {
         if (combinazioneInserita.toString().equals(combinazione)) {
-            locked = true;
+            unlocked = true;//cassaforte aperta
         } else {
-            combinazioneInserita.delete(0, 3);
+            combinazioneInserita.delete(0, 3);//Combinazione inserita cancellata
         }
     }
 
@@ -74,7 +71,7 @@ public class CombinationLock {
      * @return true se la cassaforte è attualmente aperta, false altrimenti
      */
     public boolean isOpen() {
-        return locked;
+        return unlocked;
     }
 
     /**
@@ -85,8 +82,8 @@ public class CombinationLock {
      * sono proprio la combinazione attuale.
      */
     public void lock() {
-        locked = false;//cassaforte chiusa
-        combinazioneInserita.delete(0, 3);
+        unlocked = false;//cassaforte chiusa
+        combinazioneInserita.delete(0, 3);//Combinazione inserita cancellata
     }
 
     /**
@@ -103,7 +100,7 @@ public class CombinationLock {
      * @throws NullPointerException se la combinazione fornita è nulla
      */
     public void lockAndChangeCombination(String aCombination) {
-        if (locked) {
+        if (unlocked) {
             //controllo aCombination
             if(aCombination == null) throw new NullPointerException("Nuova combinazione nulla");
             if (aCombination.length() != 3) throw new IllegalArgumentException("La nuova combinazione deve essere di " +

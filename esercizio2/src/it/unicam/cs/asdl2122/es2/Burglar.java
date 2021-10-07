@@ -28,6 +28,7 @@ public class Burglar {
      * @return la combinazione della cassaforte forzata.
      */
     public String findCombination() {
+        tentativi = 0;
         StringBuffer combinazione = new StringBuffer("$$$");//creo una stringa di 3 caratteri qualsiasi
             /*
              Tramite il cast di un numero compreso tra 65 e 90, secondo la tabella ASCII,
@@ -46,11 +47,9 @@ public class Burglar {
                         //Provo ad aprirla
                         cassaforteDaForzare.open();
                         tentativi++;
-                        if (cassaforteDaForzare.isOpen()) break;
+                        if (cassaforteDaForzare.isOpen()) return combinazione.toString();
                     }
-                    if (cassaforteDaForzare.isOpen()) break;
                 }
-                if (cassaforteDaForzare.isOpen()) break;
             }
         return combinazione.toString();
     }
