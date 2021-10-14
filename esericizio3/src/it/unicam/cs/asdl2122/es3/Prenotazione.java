@@ -1,10 +1,8 @@
 package it.unicam.cs.asdl2122.es3;
-
 /**
  * Una prenotazione riguarda una certa aula per un certo time slot.
- * 
- * @author Luca Tesei
  *
+ * @author Luca Tesei
  */
 public class Prenotazione implements Comparable<Prenotazione> {
 
@@ -18,24 +16,22 @@ public class Prenotazione implements Comparable<Prenotazione> {
 
     /**
      * Costruisce una prenotazione.
-     * 
-     * @param aula
-     *                     l'aula a cui la prenotazione si riferisce
-     * @param timeSlot
-     *                     il time slot della prenotazione
-     * @param docente
-     *                     il nome del docente che ha prenotato l'aula
-     * @param motivo
-     *                     il motivo della prenotazione
-     * @throws NullPointerException
-     *                                  se uno qualsiasi degli oggetti passati è
-     *                                  null
+     *
+     * @param aula     l'aula a cui la prenotazione si riferisce
+     * @param timeSlot il time slot della prenotazione
+     * @param docente  il nome del docente che ha prenotato l'aula
+     * @param motivo   il motivo della prenotazione
+     * @throws NullPointerException se uno qualsiasi degli oggetti passati è
+     *                              null
      */
     public Prenotazione(String aula, TimeSlot timeSlot, String docente,
-            String motivo) {
-        // TODO implementare
+                        String motivo) {
+        if (aula == null || timeSlot == null || docente == null || motivo == null) throw new NullPointerException("I " +
+                "parametri di una prenotazione non possono essere null");
         this.aula = aula;
         this.timeSlot = timeSlot;
+        this.motivo = motivo;
+        this.docente = docente;
     }
 
     /**
@@ -67,16 +63,14 @@ public class Prenotazione implements Comparable<Prenotazione> {
     }
 
     /**
-     * @param docente
-     *                    the docente to set
+     * @param docente the docente to set
      */
     public void setDocente(String docente) {
         this.docente = docente;
     }
 
     /**
-     * @param motivo
-     *                   the motivo to set
+     * @param motivo the motivo to set
      */
     public void setMotivo(String motivo) {
         this.motivo = motivo;
@@ -89,8 +83,10 @@ public class Prenotazione implements Comparable<Prenotazione> {
      */
     @Override
     public boolean equals(Object obj) {
-        // TODO implementare
-        return false;
+        if(!(obj instanceof Prenotazione)) return false;
+        if(this == obj) return true;
+        Prenotazione temp = (Prenotazione) obj;
+        return (aula.equals(temp.aula) && timeSlot.equals(temp.timeSlot));
     }
 
     /*
@@ -99,10 +95,11 @@ public class Prenotazione implements Comparable<Prenotazione> {
      */
     @Override
     public int hashCode() {
-        // TODO implementare
-        return -1;
+        int hash = 17;
+        hash = 31 * hash + aula.hashCode();
+        hash = 31 * hash + timeSlot.hashCode();
+        return hash;
     }
-
     /*
      * Una prenotazione precede un altra in base all'ordine dei time slot. Se
      * due prenotazioni hanno lo stesso time slot allora una precede l'altra in
@@ -110,9 +107,11 @@ public class Prenotazione implements Comparable<Prenotazione> {
      */
     @Override
     public int compareTo(Prenotazione o) {
-        // TODO implementare
-        return -1;
+        if(this.equals(o)) return 0;
+        if(timeSlot.equals(o.timeSlot)) return aula.compareTo(o.aula);
+        return timeSlot.compareTo(o.timeSlot);
     }
+
 
     @Override
     public String toString() {
