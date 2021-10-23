@@ -234,10 +234,10 @@ public class Aula implements Comparable<Aula> {
      */
     public boolean  removePrenotazioniBefore(GregorianCalendar timePoint) {
         if(timePoint == null) throw new NullPointerException("Il punto di tempo passato è null");
-        boolean temp = false;
+        SortedSet<Prenotazione> prenotazioniDaEliminare = new TreeSet<Prenotazione>();
         for(Prenotazione p:prenotazioni) {
             if(p.getTimeSlot().getStart().compareTo(timePoint) > 0) break;
-            temp = prenotazioni.remove(p);
+            prenotazioniDaEliminare.add(p);
         }
         /*
          * NOTA: sfruttare l'ordinamento tra le prenotazioni per rispondere in
@@ -245,6 +245,6 @@ public class Aula implements Comparable<Aula> {
          * di time slot se ho raggiunto una prenotazione con tempo di inizio
          * maggiore del tempo indicato posso smettere la procedura
          */
-        return temp;
+        return prenotazioni.removeAll(prenotazioniDaEliminare);
     }
 }
