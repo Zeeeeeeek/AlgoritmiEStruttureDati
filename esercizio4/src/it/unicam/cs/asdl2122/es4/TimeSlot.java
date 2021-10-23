@@ -198,7 +198,6 @@ public class TimeSlot implements Comparable<TimeSlot> {
         return "[" + dateFormat.format(this.start.getTime()) + " - " + dateFormat.format(this.stop.getTime()) + "]";
     }
 
-    // TODO aggiungere eventuali metodi privati a scopo di implementazione -
     // riutilizzare il codice della ES 3 o migliorarlo
 
 }

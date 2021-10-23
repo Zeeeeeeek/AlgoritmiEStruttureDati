@@ -236,6 +236,4 @@ public class Aula implements Comparable<Aula> {
             throw new IllegalArgumentException("L'aula è occupata per quel determinato timeslot");
         }
     }
-
-    // TODO inserire eventuali metodi privati per questioni di organizzazione
 }

@@ -1,14 +1,14 @@
 /**
- *
+ * 
  */
-package it.unicam.cs.asdl2122.es4;
+package it.unicam.cs.asdl2122.es5;
 
 /**
  * Una Quantitative Facility è una facility che contiene una informazione
  * quantitativa. Ad esempio la presenza di 50 posti a sedere oppure la presenza
  * di 20 thin clients.
- *
- * @author Template: Luca Tesei, Implementation: Collective
+ * 
+ * @author Luca Tesei
  *
  */
 public class QuantitativeFacility extends Facility {
@@ -17,7 +17,7 @@ public class QuantitativeFacility extends Facility {
 
     /**
      * Costruisce una facility quantitativa.
-     *
+     * 
      * @param codice
      *                        codice identificativo della facility
      * @param descrizione
@@ -30,10 +30,9 @@ public class QuantitativeFacility extends Facility {
      *                                  nulla.
      */
     public QuantitativeFacility(String codice, String descrizione,
-                                int quantity) {
+            int quantity) {
         super(codice, descrizione);
-        if(quantity >= 0)this.quantity = quantity;
-        else this.quantity = 0;
+        this.quantity = quantity;
     }
 
     /**
@@ -51,8 +50,19 @@ public class QuantitativeFacility extends Facility {
      */
     @Override
     public boolean satisfies(Facility o) {
-        if (!(o instanceof QuantitativeFacility)) return false;
-        QuantitativeFacility temp = (QuantitativeFacility) o;
-        return (getCodice().equals(temp.getCodice()) && (this.quantity >= temp.quantity));
+        if (o == null)
+            throw new NullPointerException(
+                    "Tentativo di controllare la soddisfacibilità di una facility nulla");
+        if (o instanceof QuantitativeFacility) {
+            // Controllo se la facility ha lo stesso codice e la quantità
+            // soddisfa la richiesta
+            QuantitativeFacility oo = (QuantitativeFacility) o;
+            return this.getCodice().equals(oo.getCodice())
+                    && this.quantity >= oo.quantity;
+        } else
+            // la facility non è una presence facility quindi non può essere
+            // soddisfatta
+            return false;
     }
+
 }
